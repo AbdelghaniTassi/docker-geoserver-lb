@@ -1,6 +1,4 @@
 *.DS_Store
-*._Dockerfile
 *.zip
 *.ttf
 *.otf
-

@@ -38,7 +38,7 @@ services:
     volumes:
       - ./volumes/gs_data:/opt/geoserver/data_dir
       - ./volumes/gwc_data:/opt/geoserver/gwc_data
-      - ./volumes/geo_data:/opt/geoserver/geodata
+      - ./volumes/geo_data:/opt/geoserver/geo_data
       - ./volumes/logs/geoserver_master/geoserver:/opt/geoserver/logs
       - ./volumes/logs/geoserver_master/tomcat:/usr/local/tomcat/logs
       - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
@@ -57,7 +57,7 @@ services:
     volumes:
       - ./volumes/gs_data:/opt/geoserver/data_dir
       - ./volumes/gwc_data:/opt/geoserver/gwc_data
-      - ./volumes/geo_data:/opt/geoserver/geodata
+      - ./volumes/geo_data:/opt/geoserver/geo_data
       - ./volumes/logs/geoserver_slave_1/geoserver:/opt/geoserver/logs
       - ./volumes/logs/geoserver_slave_1/tomcat:/usr/local/tomcat/logs
       - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
@@ -76,7 +76,7 @@ services:
   #  volumes:
   #    - ./volumes/gs_data:/opt/geoserver/data_dir
   #    - ./volumes/gwc_data:/opt/geoserver/gwc_data
-  #    - ./volumes/geo_data:/opt/geoserver/geodata
+  #    - ./volumes/geo_data:/opt/geoserver/geo_data
   #    - ./volumes/logs/geoserver_slave_2/geoserver:/opt/geoserver/logs
   #    - ./volumes/logs/geoserver_slave_2/tomcat:/usr/local/tomcat/logs
   #    - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
