@@ -1,0 +1,85 @@
+version: '2'
+services:
+  nginx:
+    container_name: nginx_lb
+    restart: always
+    image: nginx
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "10m"
+            max-file: "10"
+    ports:
+      - "80:8080"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./volumes/logs/nginx:/var/log/nginx
+    links:
+      - geoserver_master
+      - geoserver_slave_1
+  postgis:
+    container_name: postgis
+    restart: always
+    image: mdillon/postgis
+    hostname: postgis
+    ports:
+      - "15432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./volumes/pg_data:/var/lib/postgresql/data
+  geoserver_master:
+    container_name: geoserver_master
+    restart: always
+    image: wootapa/geoserver:2.12
+    environment:
+      - GEOSERVER_LOG_LOCATION=/opt/geoserver/logs/geoserver_master.log
+      - GEOWEBCACHE_CACHE_DIR=/opt/geoserver/gwc_data
+    volumes:
+      - ./volumes/gs_data:/opt/geoserver/data_dir
+      - ./volumes/gwc_data:/opt/geoserver/gwc_data
+      - ./volumes/geo_data:/opt/geoserver/geodata
+      - ./volumes/logs/geoserver_master/geoserver:/opt/geoserver/logs
+      - ./volumes/logs/geoserver_master/tomcat:/usr/local/tomcat/logs
+      - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
+      - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
+      - ./config/geoserver/docker_entrypoint.sh:/usr/local/docker_entrypoint.sh
+    entrypoint: /usr/local/docker_entrypoint.sh
+  geoserver_slave_1:
+    container_name: geoserver_slave_1
+    restart: always
+    image: wootapa/geoserver:2.12
+    environment:
+      - GEOSERVER_LOG_LOCATION=/opt/geoserver/logs/geoserver_slave_1.log
+      - GEOWEBCACHE_CACHE_DIR=/opt/geoserver/gwc_data
+      - GEOSERVER_CATALOG_WATCHDOG=1
+      - GEOSERVER_CATALOG_WATCHDOG_CREDENTIALS=admin:geoserver
+    volumes:
+      - ./volumes/gs_data:/opt/geoserver/data_dir
+      - ./volumes/gwc_data:/opt/geoserver/gwc_data
+      - ./volumes/geo_data:/opt/geoserver/geodata
+      - ./volumes/logs/geoserver_slave_1/geoserver:/opt/geoserver/logs
+      - ./volumes/logs/geoserver_slave_1/tomcat:/usr/local/tomcat/logs
+      - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
+      - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
+      - ./config/geoserver/docker_entrypoint.sh:/usr/local/docker_entrypoint.sh
+    entrypoint: /usr/local/docker_entrypoint.sh
+  #geoserver_slave_2:
+  #  container_name: geoserver_slave_2
+  #  restart: always
+  #  image: wootapa/geoserver:2.12
+  #  environment:
+  #    - GEOSERVER_LOG_LOCATION=/opt/geoserver/logs/geoserver_slave_2.log
+  #    - GEOWEBCACHE_CACHE_DIR=/opt/geoserver/gwc_data
+  #    - GEOSERVER_CATALOG_WATCHDOG=1
+  #    - GEOSERVER_CATALOG_WATCHDOG_CREDENTIALS=admin:geoserver
+  #  volumes:
+  #    - ./volumes/gs_data:/opt/geoserver/data_dir
+  #    - ./volumes/gwc_data:/opt/geoserver/gwc_data
+  #    - ./volumes/geo_data:/opt/geoserver/geodata
+  #    - ./volumes/logs/geoserver_slave_2/geoserver:/opt/geoserver/logs
+  #    - ./volumes/logs/geoserver_slave_2/tomcat:/usr/local/tomcat/logs
+  #    - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
+  #    - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
+  #    - ./config/geoserver/docker_entrypoint.sh:/usr/local/docker_entrypoint.sh
+  #  entrypoint: /usr/local/docker_entrypoint.sh
