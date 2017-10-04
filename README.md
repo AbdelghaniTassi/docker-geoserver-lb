@@ -1,8 +1,11 @@
 # docker-geoserver-lb
 
 A docker cluster with loadbalanced geoserver's using nginx and postgis with absolutely no promises!
+
 Geoserver heavily influenced by https://github.com/thinkWhere/GeoServer-Docker and https://github.com/kartoza/docker-geoserver.
+
 Geoserver user: admin/geoserver
+
 Postgres user: postgres/postgres
 
 # Running
@@ -16,6 +19,7 @@ Then:
 docker-compose up -d
 ```
 Then: Wait a minute
+
 Then:
 Geoserver master available at: http://localhost
 Postgis available at: localhost:15432
