@@ -16,7 +16,7 @@ cd images/2.12 && sh build.sh
 
 Then add execute permission on entrypoint:
 ```shell
-chmod +x /config/geoserver/docker_entrypoint.sh
+chmod +x config/geoserver/docker_entrypoint.sh
 ```
 
 Then:
