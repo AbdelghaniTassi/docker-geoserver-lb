@@ -13,7 +13,8 @@ from watchdog.events import PatternMatchingEventHandler
 import requests
 from threading import Timer
 
-GS_URL = 'http://localhost:8080/geoserver/rest/reload' 
+GS_URL_RELOAD = 'http://localhost:8080/geoserver/rest/reload'
+GS_URL_RESET = 'http://localhost:8080/geoserver/rest/reset'
 PATTERNS = ['*.xml']
 GS_DATAFOLDER = os.environ['GEOSERVER_DATA_DIR']
 GS_LOGLOCATION = os.environ['GEOSERVER_LOG_LOCATION']
@@ -60,15 +61,27 @@ class Handler(PatternMatchingEventHandler):
 
     def reload_catalog(self):
         self.timer = None
+        u, p = GS_CREDENTIALS.split(':')
+
+        # Reload configuration
         try:
-            u, p = GS_CREDENTIALS.split(':')
-            logging.info('Attempting to reload configuration at:{}'.format(GS_URL))
-            req = requests.post(GS_URL, auth=(u, p))
+            logging.info('Attempting to reload configuration at:{}'.format(GS_URL_RELOAD))
+            req = requests.post(GS_URL_RELOAD, auth=(u, p))
             req.raise_for_status()
             if req.status_code >= 200 and req.status_code < 300:
                 logging.info('Configuration reloaded')
         except requests.exceptions.RequestException as e:
             logging.exception('Configuration reload failed: ' + str(e))
+        
+        # Reset cache
+        try:
+            logging.info('Attempting to reset cache at:{}'.format(GS_URL_RESET))
+            req = requests.post(GS_URL_RESET, auth=(u, p))
+            req.raise_for_status()
+            if req.status_code >= 200 and req.status_code < 300:
+                logging.info('Cache reset')
+        except requests.exceptions.RequestException as e:
+            logging.exception('Cache reset failed: ' + str(e))
 
 
 if __name__ == '__main__':
