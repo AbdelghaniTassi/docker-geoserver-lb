@@ -36,13 +36,13 @@ services:
       - GEOSERVER_LOG_LOCATION=/opt/geoserver/logs/geoserver_master.log
       - GEOWEBCACHE_CACHE_DIR=/opt/geoserver/gwc_data
     volumes:
+      - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
+      - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
       - ./volumes/gs_data:/opt/geoserver/data_dir
       - ./volumes/gwc_data:/opt/geoserver/gwc_data
       - ./volumes/geo_data:/opt/geoserver/geo_data
       - ./volumes/logs/geoserver_master/geoserver:/opt/geoserver/logs
       - ./volumes/logs/geoserver_master/tomcat:/usr/local/tomcat/logs
-      - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
-      - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/geoserver"]
       interval: 30s
@@ -58,13 +58,13 @@ services:
       - GEOSERVER_CATALOG_WATCHDOG=1
       - GEOSERVER_CATALOG_WATCHDOG_CREDENTIALS=admin:geoserver
     volumes:
+      - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
+      - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
       - ./volumes/gs_data:/opt/geoserver/data_dir
       - ./volumes/gwc_data:/opt/geoserver/gwc_data
       - ./volumes/geo_data:/opt/geoserver/geo_data
       - ./volumes/logs/geoserver_slave_1/geoserver:/opt/geoserver/logs
       - ./volumes/logs/geoserver_slave_1/tomcat:/usr/local/tomcat/logs
-      - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
-      - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
     depends_on:
       geoserver_master:
         condition: service_healthy
@@ -78,13 +78,13 @@ services:
   #    - GEOSERVER_CATALOG_WATCHDOG=1
   #    - GEOSERVER_CATALOG_WATCHDOG_CREDENTIALS=admin:geoserver
   #  volumes:
+  #    - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
+  #    - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
   #    - ./volumes/gs_data:/opt/geoserver/data_dir
   #    - ./volumes/gwc_data:/opt/geoserver/gwc_data
   #    - ./volumes/geo_data:/opt/geoserver/geo_data
   #    - ./volumes/logs/geoserver_slave_2/geoserver:/opt/geoserver/logs
   #    - ./volumes/logs/geoserver_slave_2/tomcat:/usr/local/tomcat/logs
-  #    - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
-  #    - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
   #  depends_on:
   #    geoserver_master:
   #      condition: service_healthy
