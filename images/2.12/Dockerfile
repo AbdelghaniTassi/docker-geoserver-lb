@@ -15,10 +15,10 @@ RUN  dpkg-divert --local --rename --add /sbin/initctl
 #RUN echo 'Acquire::http { Proxy "http://172.17.0.3:3142"; };' >> /etc/apt/apt.conf.d/apt-cacher-ng
 
 RUN apt-get -y update
-RUN apt-get install -y vim
-RUN apt-get install -y python
-RUN apt-get install -y python-pip
-RUN apt-get install -y procps
+RUN apt-get install -y vim && \
+    apt-get install -y python && \
+    apt-get install -y python-pip && \
+    apt-get install -y procps
 
 #-------------Application Specific Stuff ----------------------------------------------------
 
@@ -86,7 +86,8 @@ WORKDIR $CATALINA_HOME
 ENV LIBJPEG_TURBO_VERSION 1.5.1
 ENV LD_LIBRARY_PATH "/opt/libjpeg-turbo/lib64:${LD_LIBRARY_PATH}"
 RUN wget -O libjpeg_turbo.deb http://sourceforge.net/projects/libjpeg-turbo/files/${LIBJPEG_TURBO_VERSION}/libjpeg-turbo-official_${LIBJPEG_TURBO_VERSION}_amd64.deb/download && \
-    dpkg -i libjpeg_turbo.deb;
+    dpkg -i libjpeg_turbo.deb && \
+    rm -f libjpeg_turbo.deb;
 
 # Fetch the geoserver war file if it is not available locally
 RUN if [ ! -f /tmp/resources/geoserver.zip ]; then \
