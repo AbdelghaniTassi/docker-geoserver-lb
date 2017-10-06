@@ -2,7 +2,7 @@
 
 A docker cluster with loadbalanced geoserver's using nginx and postgres/postgis! Geoserver is heavily influenced by https://github.com/thinkWhere/GeoServer-Docker and https://github.com/kartoza/docker-geoserver.
 
-By default, docker-compose.yml launches 2 geoserver instances, a writable master and a slave. Any interactions with the geoserver web/rest interface uses the master. Changes made by the master will be detected by the slaves and trigger a configuration reload, keeping the configuration in sync between instances.
+By default, docker-compose.yml launches 2 geoserver instances, a writable master and a slave. Any interactions with the geoserver web/rest interface uses the master. Changes made by the master will be detected by the slaves and trigger a configuration reload, keeping it in sync between instances.
 
 Geoserver user: admin/geoserver  
 Postgres user: postgres/postgres
