@@ -41,6 +41,10 @@ if [ ! -f resources/plugins/geoserver-vectortiles-plugin.zip ]
 then
     wget -c http://downloads.sourceforge.net/project/geoserver/GeoServer/${GS_VERSION}/extensions/geoserver-${GS_VERSION}-vectortiles-plugin.zip -O resources/plugins/geoserver-vectortiles-plugin.zip
 fi
+if [ ! -f resources/plugins/geoserver-libjpeg-turbo-plugin.zip ]
+then
+    wget -c http://downloads.sourceforge.net/project/geoserver/GeoServer/${GS_VERSION}/extensions/geoserver-${GS_VERSION}-libjpeg-turbo-plugin.zip -O resources/plugins/geoserver-libjpeg-turbo-plugin.zip
+fi
 #if [ ! -f resources/plugins/geoserver-mbstyle-plugin.zip ]
 #then
 #    wget -c http://ares.opengeo.org/geoserver/${GS_COMMUNITY_TAG}/community-latest/geoserver-${GS_COMMUNITY_VERSION}-mbstyle-plugin.zip -O resources/plugins/geoserver-mbstyle-plugin.zip

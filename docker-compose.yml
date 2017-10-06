@@ -43,8 +43,6 @@ services:
       - ./volumes/logs/geoserver_master/tomcat:/usr/local/tomcat/logs
       - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
       - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
-      - ./config/geoserver/docker_entrypoint.sh:/usr/local/docker_entrypoint.sh
-    entrypoint: /usr/local/docker_entrypoint.sh
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/geoserver"]
       interval: 30s
@@ -67,11 +65,9 @@ services:
       - ./volumes/logs/geoserver_slave_1/tomcat:/usr/local/tomcat/logs
       - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
       - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
-      - ./config/geoserver/docker_entrypoint.sh:/usr/local/docker_entrypoint.sh
     depends_on:
       geoserver_master:
         condition: service_healthy
-    entrypoint: /usr/local/docker_entrypoint.sh
   #geoserver_slave_2:
   #  container_name: geoserver_slave_2
   #  restart: always
@@ -89,8 +85,7 @@ services:
   #    - ./volumes/logs/geoserver_slave_2/tomcat:/usr/local/tomcat/logs
   #    - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
   #    - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
-  #    - ./config/geoserver/docker_entrypoint.sh:/usr/local/docker_entrypoint.sh
   #  depends_on:
   #    geoserver_master:
   #      condition: service_healthy
-  #  entrypoint: /usr/local/docker_entrypoint.sh
+

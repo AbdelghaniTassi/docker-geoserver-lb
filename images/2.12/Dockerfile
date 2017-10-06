@@ -82,6 +82,12 @@ ENV CATALINA_OPTS "-Xbootclasspath/a:${MARLIN_DIR}/marlin-${MARLIN_VERSION}-Unsa
 
 WORKDIR $CATALINA_HOME
 
+# Add libjpeg turbo
+ENV LIBJPEG_TURBO_VERSION 1.5.1
+ENV LD_LIBRARY_PATH "/opt/libjpeg-turbo/lib64:${LD_LIBRARY_PATH}"
+RUN wget -O libjpeg_turbo.deb http://sourceforge.net/projects/libjpeg-turbo/files/${LIBJPEG_TURBO_VERSION}/libjpeg-turbo-official_${LIBJPEG_TURBO_VERSION}_amd64.deb/download && \
+    dpkg -i libjpeg_turbo.deb;
+
 # Fetch the geoserver war file if it is not available locally
 RUN if [ ! -f /tmp/resources/geoserver.zip ]; then \
     wget -c http://downloads.sourceforge.net/project/geoserver/GeoServer/${GS_VERSION}/geoserver-${GS_VERSION}-war.zip \
@@ -118,4 +124,8 @@ RUN if [ "$TOMCAT_EXTRAS" = false ]; then \
 
 # Delete resources after installation
 RUN rm -rf /tmp/resources
+
+ADD docker_entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker_entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]
 EXPOSE 8080
