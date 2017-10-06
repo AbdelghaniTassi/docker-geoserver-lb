@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
   nginx:
     container_name: nginx_lb
@@ -45,6 +45,11 @@ services:
       - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
       - ./config/geoserver/docker_entrypoint.sh:/usr/local/docker_entrypoint.sh
     entrypoint: /usr/local/docker_entrypoint.sh
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/geoserver"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   geoserver_slave_1:
     container_name: geoserver_slave_1
     restart: always
@@ -63,6 +68,9 @@ services:
       - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
       - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
       - ./config/geoserver/docker_entrypoint.sh:/usr/local/docker_entrypoint.sh
+    depends_on:
+      geoserver_master:
+        condition: service_healthy
     entrypoint: /usr/local/docker_entrypoint.sh
   #geoserver_slave_2:
   #  container_name: geoserver_slave_2
@@ -82,4 +90,7 @@ services:
   #    - ./config/tomcat/setenv.sh:/usr/local/tomcat/bin/setenv.sh
   #    - ./config/geoserver/catalog_watchdog.py:/usr/local/catalog_watchdog.py
   #    - ./config/geoserver/docker_entrypoint.sh:/usr/local/docker_entrypoint.sh
+  #  depends_on:
+  #    geoserver_master:
+  #      condition: service_healthy
   #  entrypoint: /usr/local/docker_entrypoint.sh
