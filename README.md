@@ -9,6 +9,12 @@ Postgres user: postgres/postgres
 
 ## Running:
 
+Build image
+```shell
+sh images/2.12/build.sh
+```
+
+Then:
 ```shell
 docker-compose up -d
 ```
@@ -28,7 +34,7 @@ In /volumes folder you'll find:
 
 ## Building:
 
-If the registry is not enough and you need additional plugins/fonts etc, you can build the image yourself. See images/\<version\>/build.sh.
+If you need additional plugins/fonts etc, you can build the image yourself. See images/\<version\>/build.sh.
 
 ## Slaves:
 
