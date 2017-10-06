@@ -22,7 +22,7 @@ RUN apt-get install -y vim && \
 
 #-------------Application Specific Stuff ----------------------------------------------------
 
-ENV GS_VERSION 2.12-beta
+ENV GS_VERSION 2.12-RC1
 ENV GEOSERVER_HOME /opt/geoserver
 ENV GEOSERVER_DATA_DIR "${GEOSERVER_HOME}/data_dir"
 ENV GEOSERVER_LOGS "${GEOSERVER_HOME}/logs"

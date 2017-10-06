@@ -18,7 +18,7 @@ then
     mkdir $DIR/resources/fonts
 fi
 
-GS_VERSION=2.12-beta
+GS_VERSION=2.12-RC1
 GS_COMMUNITY_TAG=master
 GS_COMMUNITY_VERSION=2.12-SNAPSHOT
 
