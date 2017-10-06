@@ -35,5 +35,3 @@ In /volumes folder you'll find:
 * gwc_data - Geowebcache cache folder
 * pg_data - Postgis data
 * logs - Geoserver/Tomcat/Nginx logs
-
-**Note:** At first run, the empty volumes/gs_data folder will most likely cause race conditions between geoserver instances when creating configurations. Simply restart to solve this. 
