@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
 # Create plugins folder if does not exist
 if [ ! -d $DIR/resources ]
