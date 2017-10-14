@@ -32,9 +32,25 @@ In /volumes folder you'll find:
 
 **Note:** In geoserver when adding a new store, navigate to /opt/geoserver/geo_data.
 
-## Building:
+## Plugins:
 
-If you need additional plugins/fonts etc, modify build.sh before building. See images/\<version\>/build.sh.
+Default plugins:
+* control flow
+* css
+* gdal
+* importer
+* inspire
+* libjpegturbo
+* mbstyle (community)
+* mbtiles (community)
+* monitor
+* ogr wfs
+* ogr wps
+* pyramid
+* vectortiles
+* wps
+
+If you need additional plugins/fonts, modify build.sh before building. See images/\<version\>/build.sh.
 
 ## Slaves:
 
