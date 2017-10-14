@@ -34,7 +34,7 @@ In /volumes folder you'll find:
 
 ## Building:
 
-If you need additional plugins/fonts etc, you can build the image yourself. See images/\<version\>/build.sh.
+If you need additional plugins/fonts etc, modify build.sh before building. See images/\<version\>/build.sh.
 
 ## Slaves:
 
